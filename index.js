@@ -4,7 +4,9 @@ const bridgeABI = require('./bridge.json')
 /** Filename for the generated Solidity bridge interface file */
 const BRIDGE_SOL = 'Bridge.sol'
 
-const functions = bridgeABI.filter((element) => element.type === 'function')
+const functions = bridgeABI.filter(
+  (element) => element.type === 'function',
+)
 const stream = fs.createWriteStream(BRIDGE_SOL)
 stream.write(`// SPDX-License-Identifier: GPL-3.0
 pragma solidity >=0.7.0 <0.9.0;
@@ -16,7 +18,12 @@ functions.forEach((f) => {
   const inputs = f.inputs
     .map((i) => {
       // add 'calldata' to the following types
-      const type = ['bytes', 'bytes[]', 'bytes32[]', 'string'].includes(i.type)
+      const type = [
+        'bytes',
+        'bytes[]',
+        'bytes32[]',
+        'string',
+      ].includes(i.type)
         ? `${i.type} calldata`
         : i.type
       return `${type} _${i.name}`
@@ -34,11 +41,13 @@ functions.forEach((f) => {
     .join(', ')
   // record a single function signature
   stream.write(
-    `    ${f.type} ${f.name}(${inputs}) external${f.constant ? ' view' : ''}${
-      outputs ? ` returns (${outputs})` : ''
-    };\n`,
+    `    ${f.type} ${f.name}(${inputs}) external${
+      f.constant ? ' view' : ''
+    }${outputs ? ` returns (${outputs})` : ''};\n`,
   )
 })
 stream.write('}\n')
 stream.end()
-console.log(`The bridge was generated. Find it in the file ${BRIDGE_SOL}`)
+console.log(
+  `The bridge was generated. Find it in the file ${BRIDGE_SOL}`,
+)

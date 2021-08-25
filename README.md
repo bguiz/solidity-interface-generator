@@ -12,8 +12,8 @@
 - [x] Add `package.json`
   - [x] update README to include new author
 - [x] Add main feature already implemented in script
-- [ ] Add dependency on linting tool
-  - add npm run script
+- [x] Add dependency on linting tool
+  - [x] add npm run script
 - [ ] Add dependency on testing framework
   - add npm run script
   - add test cases including files

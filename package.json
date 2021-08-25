@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha",
-    "start": "node index.js"
+    "start": "node index.js",
+    "lint": "npx eslint *.js"
   },
   "repository": {
     "type": "git",
@@ -24,5 +25,13 @@
   "bugs": {
     "url": "https://github.com/bguiz/solidity-interface-generator/issues"
   },
-  "homepage": "https://github.com/bguiz/solidity-interface-generator#readme"
+  "homepage": "https://github.com/bguiz/solidity-interface-generator#readme",
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-prettier": "^3.4.1",
+    "prettier": "^2.3.2"
+  }
 }
