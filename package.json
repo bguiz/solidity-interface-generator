@@ -11,12 +11,9 @@
     "url": "git+https://github.com/bguiz/solidity-interface-generator.git"
   },
   "keywords": [
-    "iovlabs",
-    "rsk",
     "solidity",
-    "bridge",
-    "bitcoin",
-    "ethereum"
+    "abi",
+    "evm"
   ],
   "author": "Brendan Graetz, Aleks Shenshin",
   "license": "GPL-3.0",
