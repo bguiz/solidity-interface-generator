@@ -17,11 +17,11 @@
 - [x] Add dependency on testing framework
   - [x] add npm run script
   - [x] add test cases including files
-- [ ] Add dependency for CLI tool
-  - Accept value for `pragma` as a CLI parameter
-  - Accept value for `output` as a CLI parameter
+- [x] Add dependency for CLI tool
+  - [x] Accept value for `pragma` as a CLI parameter
+  - [x] Accept value for `output` as a CLI parameter
   - Accept ABI JSON file from `stdin` stream
-  - Write output to `stdout` if `output` file is not specified
+  - [x] Write output to `stdout` if `output` file is not specified
 - [ ] ...
 
 ## Author

@@ -2,11 +2,11 @@
   "name": "solidity-interface-generator",
   "version": "0.0.1",
   "description": "Solidity interface generator for the RSK bridge",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "mocha",
-    "start": "node index.js",
-    "lint": "npx eslint *.js"
+    "start": "node src/index.js < bridge.json",
+    "lint": "npx eslint src/*.js"
   },
   "repository": {
     "type": "git",
@@ -37,6 +37,9 @@
   },
   "dependencies": {
     "@truffle/hdwallet-provider": "^1.5.0",
+    "chalk": "^4.1.2",
+    "colors": "^1.4.0",
+    "commander": "^8.1.0",
     "fs-extra": "^10.0.0",
     "solc": "^0.8.7-fixed"
   }

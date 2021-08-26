@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity >=0.7.0 <0.9.0;
-
+  
 interface Bridge {
     function getBtcBlockchainBestChainHeight() external view returns (int);
     function getStateForBtcReleaseClient() external view returns (bytes memory);
