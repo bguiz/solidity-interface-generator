@@ -11,7 +11,7 @@
   - add roadmap & instructions to README
 - [x] Add `package.json`
   - [x] update README to include new author
-- [ ] Add main feature already implemented in script
+- [x] Add main feature already implemented in script
 - [ ] Add dependency on linting tool
   - add npm run script
 - [ ] Add dependency on testing framework
