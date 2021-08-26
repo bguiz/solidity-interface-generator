@@ -9,8 +9,8 @@
 
 - [x] Init repo
   - add roadmap & instructions to README
-- [ ] Add `package.json`
-  - update README to include new author
+- [x] Add `package.json`
+  - [x] update README to include new author
 - [ ] Add main feature already implemented in script
 - [ ] Add dependency on linting tool
   - add npm run script
@@ -27,6 +27,7 @@
 ## Author
 
 [Brendan Graetz](http://bguiz.com/)
+[Aleks Shenshin](https://github.com/shenshin/)
 
 ## Licence
 
