@@ -33,7 +33,6 @@
     "prettier": "^2.3.2"
   },
   "dependencies": {
-    "@truffle/hdwallet-provider": "^1.5.0",
     "fs-extra": "^10.0.0",
     "solc": "^0.8.7-fixed"
   }
