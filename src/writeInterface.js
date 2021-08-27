@@ -3,43 +3,38 @@ function writeInterface(functions, pragma, stream = process.stdout) {
 ${'pragma'.brightYellow} ${pragma};
   
 ${'interface'.blue} Bridge {
-`)
+`);
   functions.forEach((f) => {
     // function parameters
     const inputs = f.inputs
       .map((i) => {
         // add 'calldata' to the following types
-        const type = [
-          'bytes',
-          'bytes[]',
-          'bytes32[]',
-          'string',
-        ].includes(i.type)
+        const type = ['bytes', 'bytes[]', 'bytes32[]', 'string'].includes(
+          i.type,
+        )
           ? `${i.type.blue} ${'calldata'.yellow}`
-          : i.type.blue
-        return `${type} _${i.name}`
+          : i.type.blue;
+        return `${type} _${i.name}`;
       })
-      .join(', ')
+      .join(', ');
     // function return values
     const outputs = f.outputs
       .map((o) => {
         // add 'memory' to the following types
         const type = ['bytes', 'string'].includes(o.type)
           ? `${o.type.blue} ${'memory'.yellow}`
-          : o.type.blue
-        return `${type}${o.name ? ` ${o.name}` : ''}`
+          : o.type.blue;
+        return `${type}${o.name ? ` ${o.name}` : ''}`;
       })
-      .join(', ')
+      .join(', ');
     // record a single function signature
     stream.write(
-      `    ${f.type.blue} ${f.name.green}(${inputs}) ${
-        'external'.yellow
-      }${f.constant ? ' view'.yellow : ''}${
-        outputs ? ` ${'returns'.brightYellow} (${outputs})` : ''
-      };\n`,
-    )
-  })
-  stream.write('}\n')
-  stream.end()
+      `    ${f.type.blue} ${f.name.green}(${inputs}) ${'external'.yellow}${
+        f.constant ? ' view'.yellow : ''
+      }${outputs ? ` ${'returns'.brightYellow} (${outputs})` : ''};\n`,
+    );
+  });
+  stream.write('}\n');
+  stream.end();
 }
-module.exports = writeInterface
+module.exports = writeInterface;
