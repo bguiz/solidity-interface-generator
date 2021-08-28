@@ -1,6 +1,6 @@
 import { program } from 'commander';
 
-function setCLI() {
+function parseCLI() {
   // set CLI params and options
   program
     .version('0.0.1')
@@ -19,7 +19,7 @@ function setCLI() {
       'abi.json',
     );
   program.parse();
-  const { output, pragma, abi: abiJson } = program.opts();
-  return { output, pragma, abiJson };
+  const { output: outputFilename, pragma, abi: abiFilename } = program.opts();
+  return { outputFilename, pragma, abiFilename };
 }
-export default setCLI;
+export default parseCLI;
