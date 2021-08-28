@@ -20,7 +20,7 @@
 - [x] Add dependency for CLI tool
   - [x] Accept value for `pragma` as a CLI parameter
   - [x] Accept value for `output` as a CLI parameter
-  - Accept ABI JSON file from `stdin` stream
+  - [x] Accept ABI JSON file from `stdin` stream
   - [x] Write output to `stdout` if `output` file is not specified
 - [ ] ...
 

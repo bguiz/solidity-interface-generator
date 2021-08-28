@@ -1,15 +1,19 @@
-const { describe, it } = require('mocha');
-const util = require('util');
-const assert = require('assert');
-const fs = require('fs-extra');
-const path = require('path');
-const exec = util.promisify(require('child_process').exec);
-const solc = require('solc');
+import { describe, it } from 'mocha';
+import { promisify } from 'util';
+import assert, { strictEqual } from 'assert';
+import fs from 'fs-extra';
+import { resolve, dirname } from 'path';
+import { fileURLToPath } from 'url';
+import { exec as execCallback } from 'child_process';
+import solc from 'solc';
 
-const getPath = (file) => path.resolve(__dirname, '..', 'contracts', file);
+const exec = promisify(execCallback);
+
+const getPath = (file) =>
+  resolve(dirname(fileURLToPath(import.meta.url)), '..', 'contracts', file);
 
 const DEFAULT_OUTPUT_FILENAME = 'Bridge.sol';
-const DEFAULT_INPUT_FILENAME = 'bridge.json';
+const DEFAULT_INPUT_FILENAME = 'abi.json';
 
 describe('Bridge generator', () => {
   it('generates a bridge file', async () => {
@@ -18,12 +22,14 @@ describe('Bridge generator', () => {
       await fs.remove(getPath(DEFAULT_OUTPUT_FILENAME));
       // execute Terminal command
       const { stdout } = await exec(
-        `node src/index.js -o ${DEFAULT_OUTPUT_FILENAME} < ${DEFAULT_INPUT_FILENAME}`,
+        `node index.js -o ${DEFAULT_OUTPUT_FILENAME} < ${DEFAULT_INPUT_FILENAME}`,
       );
       // check if the certain string was sent to the stdout
-      assert.strictEqual(
+      strictEqual(
         stdout,
-        `The bridge was generated. Find it in the file ./contracts/${DEFAULT_OUTPUT_FILENAME}\n`,
+        `The bridge was generated. Find it in the file ${getPath(
+          DEFAULT_OUTPUT_FILENAME,
+        )}\n`,
       );
     } catch (error) {
       assert(false, error.message);

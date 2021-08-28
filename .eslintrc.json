@@ -13,6 +13,8 @@
         "ecmaVersion": 12
     },
     "rules": {
-      "prettier/prettier": ["error"]
+      "prettier/prettier": ["error"],
+      "no-underscore-dangle": "off",
+      "import/extensions": "off"
     }
 }

@@ -1,3 +1,9 @@
+/**
+ * Generates Solidity interface from ABI and writes it to a specified stream
+ * @param {[]} functions ABI descriptions of function signatures
+ * @param {string} pragma Solidity pragma statement
+ * @param {WritableStream} stream stream to write to
+ */
 function writeInterface(functions, pragma, stream = process.stdout) {
   stream.write(`${'// SPDX-License-Identifier: GPL-3.0'.gray}
 ${'pragma'.brightYellow} ${pragma};
@@ -37,4 +43,4 @@ ${'interface'.blue} Bridge {
   stream.write('}\n');
   stream.end();
 }
-module.exports = writeInterface;
+export default writeInterface;
