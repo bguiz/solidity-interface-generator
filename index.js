@@ -17,16 +17,16 @@ async function main() {
       .version('0.0.1')
       .option(
         '-p, --pragma <pragma>',
-        'Add Solidity pragma expression',
+        'add Solidity pragma expression',
         'solidity >=0.7.0 <0.9.0',
       )
       .option(
         '-o, --output <filename>',
-        'Specify a name for an output file. Writes to standart output by default',
+        'specify a name for an output file. Writes to standart output by default',
       )
       .option(
         '-a, --abi <filename>',
-        "Specify a name for the ABI JSON file. By default reads 'abi.json'",
+        'specify a name for the ABI JSON file',
         'abi.json',
       );
     program.parse();

@@ -1,5 +1,31 @@
 # solidity-interface-generator
 
+  ## Usage
+  -p, --pragma <pragma>    add Solidity pragma expression (default: "solidity >=0.7.0 <0.9.0")
+  -o, --output <filename>  specify a name for an output file. Writes to standart output by default
+  -a, --abi <filename>     specify a name for the ABI JSON file (default: "abi.json")
+
+  -V, --version            output the version number
+  -h, --help               display help for command
+
+  ### Example
+  The following Terminal commands give the same result: the script `index.js` receives a file `abi.json`
+  and generates Solidity interface to the file `contracts/Bridge.sol`
+  ```bash
+    % node index.js -o Bridge.sol < abi.json
+    % node index.js --output Bridge.sol --abi abi.json
+    % cat abi.json | node index.js -o Bridge.sol
+  ```
+  If an output file was not specified, generates an interface and outputs it to the Terminal window
+  ```bash
+    % node index.js < abi.json
+  ```
+  If neither output Solidity interface file, nor input JSON ABI file were specified, takes data from
+  `abi.json` and writes an interface to the Terminal window. Solidity pragma expression could be added as follows
+  ```bash
+    % node index.js --pragma "solidity ^0.8.1"
+  ```
+
 ## Instructions
 
 - Implement items from the roadmap in sequential order
