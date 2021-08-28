@@ -15,21 +15,19 @@ async function main() {
     const { output, pragma, abiJson } = setCLI();
     // Accept ABI JSON file from stdin stream or from provided file
     const abi = await readABI(abiJson);
-    const outputFile = output && resolve(__dirname, 'contracts', output);
-
-    // paint the text with colors if output to the console
-    colors[output ? 'disable' : 'enable']();
-    // Write output to stdout if output file is not specified
-    const stream = output ? fs.createWriteStream(outputFile) : process.stdout;
     // only select function signatures from the ABI
     const functions = abi.filter((element) => element.type === 'function');
-    // output function signatures to the selected stream
-    writeInterface(functions, pragma, stream);
-
     if (output) {
+      const outputFile = resolve(__dirname, 'contracts', output);
+      colors.disable();
+      writeInterface(functions, pragma, fs.createWriteStream(outputFile));
       process.stdout.write(
         `The bridge was generated. Find it in the file ${outputFile}\n`,
       );
+    } else {
+      // paint the text with colors if output to the console
+      colors.enable();
+      writeInterface(functions, pragma, process.stdout);
     }
   } catch (error) {
     process.stdout.write(`Could not generate an interface. ${error.message}\n`);
