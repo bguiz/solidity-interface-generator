@@ -14,9 +14,9 @@
 - [x] Add main feature already implemented in script
 - [x] Add dependency on linting tool
   - [x] add npm run script
-- [ ] Add dependency on testing framework
-  - add npm run script
-  - add test cases including files
+- [x] Add dependency on testing framework
+  - [x] add npm run script
+  - [x] add test cases including files
 - [ ] Add dependency for CLI tool
   - Accept value for `pragma` as a CLI parameter
   - Accept value for `output` as a CLI parameter

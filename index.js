@@ -2,7 +2,7 @@ const fs = require('fs');
 /** Name of the bridge ABI file */
 const bridgeABI = require('./bridge.json');
 /** Filename for the generated Solidity bridge interface file */
-const BRIDGE_SOL = 'Bridge.sol';
+const BRIDGE_SOL = './contracts/Bridge.sol';
 
 const functions = bridgeABI.filter((element) => element.type === 'function');
 const stream = fs.createWriteStream(BRIDGE_SOL);
@@ -41,4 +41,5 @@ functions.forEach((f) => {
 });
 stream.write('}\n');
 stream.end();
+
 console.log(`The bridge was generated. Find it in the file ${BRIDGE_SOL}`);
