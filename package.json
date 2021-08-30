@@ -2,24 +2,21 @@
   "name": "solidity-interface-generator",
   "type": "module",
   "version": "0.0.1",
-  "description": "Solidity interface generator for the RSK bridge",
-  "main": "src/index.js",
+  "description": "Generate Solidity Interfaces from ABI files",
+  "main": "index.js",
   "scripts": {
     "test": "mocha",
     "start": "node index.js < abi.json",
-    "lint": "eslint src/*.js"
+    "lint": "eslint *.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bguiz/solidity-interface-generator.git"
   },
   "keywords": [
-    "iovlabs",
-    "rsk",
     "solidity",
-    "bridge",
-    "bitcoin",
-    "ethereum"
+    "abi",
+    "evm"
   ],
   "author": "Brendan Graetz, Aleks Shenshin",
   "license": "GPL-3.0",
