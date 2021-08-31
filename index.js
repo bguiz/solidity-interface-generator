@@ -1,45 +1,37 @@
-const fs = require('fs');
-/** Name of the bridge ABI file */
-const bridgeABI = require('./bridge.json');
-/** Filename for the generated Solidity bridge interface file */
-const BRIDGE_SOL = './contracts/Bridge.sol';
+#! /usr/bin/env node
 
-const functions = bridgeABI.filter((element) => element.type === 'function');
-const stream = fs.createWriteStream(BRIDGE_SOL);
-stream.write(`// SPDX-License-Identifier: GPL-3.0
-pragma solidity >=0.7.0 <0.9.0;
+import fs from 'fs-extra';
+import { resolve, dirname } from 'path';
+import colors from 'colors';
+import { fileURLToPath } from 'url';
+import readABI from './src/readABI.js';
+import writeInterface from './src/writeInterface.js';
+import parseCLI from './src/parseCLI.js';
 
-interface Bridge {
-`);
-functions.forEach((f) => {
-  // function parameters
-  const inputs = f.inputs
-    .map((i) => {
-      // add 'calldata' to the following types
-      const type = ['bytes', 'bytes[]', 'bytes32[]', 'string'].includes(i.type)
-        ? `${i.type} calldata`
-        : i.type;
-      return `${type} _${i.name}`;
-    })
-    .join(', ');
-  // function return values
-  const outputs = f.outputs
-    .map((o) => {
-      // add 'memory' to the following types
-      const type = ['bytes', 'string'].includes(o.type)
-        ? `${o.type} memory`
-        : o.type;
-      return `${type}${o.name ? ` ${o.name}` : ''}`;
-    })
-    .join(', ');
-  // record a single function signature
-  stream.write(
-    `    ${f.type} ${f.name}(${inputs}) external${f.constant ? ' view' : ''}${
-      outputs ? ` returns (${outputs})` : ''
-    };\n`,
-  );
-});
-stream.write('}\n');
-stream.end();
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
-console.log(`The bridge was generated. Find it in the file ${BRIDGE_SOL}`);
+async function main() {
+  try {
+    // read user specified options
+    const { outputFilename, pragma, abiFilename } = parseCLI();
+    // Accept ABI JSON file from stdin stream or from provided file
+    const abi = await readABI(abiFilename);
+    // only select function signatures from the ABI
+    const functions = abi.filter((element) => element.type === 'function');
+    if (outputFilename) {
+      const outputFile = resolve(__dirname, 'contracts', outputFilename);
+      colors.disable();
+      writeInterface(functions, pragma, fs.createWriteStream(outputFile));
+      process.stdout.write(
+        `The bridge was generated. Find it in the file ${outputFile}\n`,
+      );
+    } else {
+      // paint the text with colors if output to the console
+      colors.enable();
+      writeInterface(functions, pragma, process.stdout);
+    }
+  } catch (error) {
+    process.stdout.write(`Could not generate an interface. ${error.message}\n`);
+  }
+}
+main();

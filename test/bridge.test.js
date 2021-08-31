@@ -1,24 +1,35 @@
-const { describe, it } = require('mocha');
-const util = require('util');
-const assert = require('assert');
-const fs = require('fs-extra');
-const path = require('path');
-const exec = util.promisify(require('child_process').exec);
-const solc = require('solc');
+import { describe, it } from 'mocha';
+import { promisify } from 'util';
+import assert, { strictEqual } from 'assert';
+import fs from 'fs-extra';
+import { resolve, dirname } from 'path';
+import { fileURLToPath } from 'url';
+import { exec as execCallback } from 'child_process';
+import solc from 'solc';
 
-const getPath = (file) => path.resolve(__dirname, '..', 'contracts', file);
+const exec = promisify(execCallback);
+
+const getPath = (file) =>
+  resolve(dirname(fileURLToPath(import.meta.url)), '..', 'contracts', file);
+
+const DEFAULT_OUTPUT_FILENAME = 'Bridge.sol';
+const DEFAULT_INPUT_FILENAME = 'abi.json';
 
 describe('Bridge generator', () => {
   it('generates a bridge file', async () => {
     try {
       // delete previously created interface
-      await fs.remove(getPath('Bridge.sol'));
+      await fs.remove(getPath(DEFAULT_OUTPUT_FILENAME));
       // execute Terminal command
-      const { stdout } = await exec('node index.js');
-      // compare standart output with a certain string
-      assert.strictEqual(
+      const { stdout } = await exec(
+        `node index.js -o ${DEFAULT_OUTPUT_FILENAME} < ${DEFAULT_INPUT_FILENAME}`,
+      );
+      // check if the certain string was sent to the stdout
+      strictEqual(
         stdout,
-        'The bridge was generated. Find it in the file ./contracts/Bridge.sol\n',
+        `The bridge was generated. Find it in the file ${getPath(
+          DEFAULT_OUTPUT_FILENAME,
+        )}\n`,
       );
     } catch (error) {
       assert(false, error.message);
@@ -27,12 +38,16 @@ describe('Bridge generator', () => {
 
   it('compiles contracts using generated file', async () => {
     try {
-      const contractFile = await fs.readFile(getPath('Federation.sol'), 'utf8');
-      const bridgeFile = await fs.readFile(getPath('Bridge.sol'), 'utf8');
+      const contractFileName = 'Federation.sol';
+      const contractFile = await fs.readFile(getPath(contractFileName), 'utf8');
+      const interfaceFile = await fs.readFile(
+        getPath(DEFAULT_OUTPUT_FILENAME),
+        'utf8',
+      );
       const input = {
         language: 'Solidity',
         sources: {
-          'Federation.sol': {
+          [contractFileName]: {
             content: contractFile,
           },
         },
@@ -45,8 +60,8 @@ describe('Bridge generator', () => {
         },
       };
       const findImports = (filePath) =>
-        filePath === 'Bridge.sol'
-          ? { contents: bridgeFile }
+        filePath === DEFAULT_OUTPUT_FILENAME
+          ? { contents: interfaceFile }
           : { error: 'File not found' };
       const compilation = JSON.parse(
         solc.compile(JSON.stringify(input), { import: findImports }),
@@ -54,8 +69,10 @@ describe('Bridge generator', () => {
       if (compilation.errors) {
         throw new Error(compilation.errors[0].message);
       }
-      const { 'Bridge.sol': bridge, 'Federation.sol': federation } =
-        compilation.contracts;
+      const {
+        [DEFAULT_OUTPUT_FILENAME]: bridge,
+        [contractFileName]: federation,
+      } = compilation.contracts;
       assert(bridge && federation);
     } catch (error) {
       assert(false, error.message);

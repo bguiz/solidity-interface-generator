@@ -1,6 +1,5 @@
 {
     "env": {
-        "commonjs": true,
         "es2021": true,
         "node": true
     },
@@ -14,6 +13,7 @@
     },
     "rules": {
       "prettier/prettier": ["error"],
-      "no-console":"off"
+      "no-underscore-dangle": "off",
+      "import/extensions": "off"
     }
 }
