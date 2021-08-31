@@ -15,8 +15,7 @@ function parseCLI() {
     )
     .option(
       '-a, --abi <filename>',
-      'specify a name for the ABI JSON file',
-      'abi.json',
+      'specify a name for the ABI JSON file. Reads from standart input by default',
     );
   program.parse();
   const { output: outputFilename, pragma, abi: abiFilename } = program.opts();
