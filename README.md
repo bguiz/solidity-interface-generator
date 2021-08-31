@@ -6,6 +6,7 @@
   -p, --pragma <pragma> | add Solidity pragma expression (default: "solidity >=0.7.0 <0.9.0")
   -o, --output <filename> | specify a name for an output file. Writes to standart output by default
   -a, --abi <filename> | specify a name for the ABI JSON file (default: "abi.json")
+  --no-color | disable colored syntax hinglighting in the Terminal window
   -V, --version | output the version number
   -h, --help | display help for command
 
