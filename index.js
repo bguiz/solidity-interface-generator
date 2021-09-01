@@ -13,7 +13,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 async function main() {
   try {
     // read user specified options
-    const { outputFilename, pragma, abiFilename } = parseCLI();
+    const { outputFilename, pragma, abiFilename, color } = parseCLI();
     // Accept ABI JSON file from stdin stream or from provided file
     const abi = await readABI(abiFilename);
     // only select function signatures from the ABI
@@ -27,7 +27,7 @@ async function main() {
       );
     } else {
       // paint the text with colors if output to the console
-      colors.enable();
+      colors[color ? 'enable' : 'disable']();
       writeInterface(functions, pragma, process.stdout);
     }
   } catch (error) {

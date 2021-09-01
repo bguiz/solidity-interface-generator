@@ -1,35 +1,40 @@
 import fs from 'fs';
+
 /**
- * First tries to read ABI from stdin, then from --abi (-a)
- * command line parameter.
+ * First tries to read ABI from --abi (-a) command line parameter,
+ * then from stdin, and lastly from the default filename
  * @param {string} filename user specified or default ABI filename
  * @returns {Promise<[]>} ABI interface
  */
 function readABI(filename) {
-  const { stdin } = process;
-  stdin.setEncoding('utf8');
   return new Promise((resolve, reject) => {
-    // trying to read a file from stdin (command line)
-    stdin.on('data', (file) => {
-      try {
-        resolve(JSON.parse(file));
-      } catch (error) {
-        reject(error);
-      }
-    });
-    stdin.on('error', () => {
-      reject(Error('Error reading ABI file'));
-    });
     // trying to read a file from --abi command line parameter
-    // or from a default filename
-    setTimeout(() => {
+    if (filename) {
       try {
-        stdin.pause();
         resolve(JSON.parse(fs.readFileSync(filename)));
       } catch (error) {
         reject(error);
       }
-    }, 50);
+
+      // if --abi param was not specified, try to read from stdin
+    } else {
+      const { stdin } = process;
+      stdin.setEncoding('utf8');
+      const chunks = [];
+      stdin.on('data', (chunk) => {
+        chunks.push(chunk);
+      });
+      stdin.on('end', () => {
+        try {
+          resolve(JSON.parse(chunks.join('')));
+        } catch (error) {
+          reject(error);
+        }
+      });
+      stdin.on('error', () => {
+        reject(Error('Error reading ABI file'));
+      });
+    }
   });
 }
 export default readABI;

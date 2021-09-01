@@ -15,11 +15,19 @@ function parseCLI() {
     )
     .option(
       '-a, --abi <filename>',
-      'specify a name for the ABI JSON file',
-      'abi.json',
+      'specify a name for the ABI JSON file. When unspecified, reads from the standard input',
+    )
+    .option(
+      '--no-color',
+      'disable colored syntax hinglighting in the Terminal window',
     );
   program.parse();
-  const { output: outputFilename, pragma, abi: abiFilename } = program.opts();
-  return { outputFilename, pragma, abiFilename };
+  const {
+    output: outputFilename,
+    pragma,
+    abi: abiFilename,
+    color,
+  } = program.opts();
+  return { outputFilename, pragma, abiFilename, color };
 }
 export default parseCLI;
