@@ -1,4 +1,4 @@
-import fs from 'fs';
+const fs = require('fs');
 
 /**
  * First tries to read ABI from --abi (-a) command line parameter,
@@ -37,4 +37,4 @@ function readABI(filename) {
     }
   });
 }
-export default readABI;
+module.exports = readABI;

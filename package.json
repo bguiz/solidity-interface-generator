@@ -1,11 +1,11 @@
 {
   "name": "solidity-interface-generator",
-  "type": "module",
   "version": "0.0.1",
   "description": "Generate Solidity Interfaces from ABI files",
   "main": "index.js",
   "scripts": {
     "test": "mocha",
+    "coverage": "nyc --reporter=html npm run test",
     "start": "node index.js < abi.json",
     "lint": "eslint *.js"
   },
@@ -31,6 +31,7 @@
     "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-prettier": "^3.4.1",
     "mocha": "^9.1.0",
+    "nyc": "^15.1.0",
     "prettier": "^2.3.2"
   },
   "dependencies": {

@@ -43,4 +43,4 @@ ${'interface'.blue} Bridge {
   stream.write('}\n');
   stream.end();
 }
-export default writeInterface;
+module.exports = writeInterface;

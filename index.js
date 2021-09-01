@@ -1,14 +1,11 @@
 #! /usr/bin/env node
 
-import fs from 'fs-extra';
-import { resolve, dirname } from 'path';
-import colors from 'colors';
-import { fileURLToPath } from 'url';
-import readABI from './src/readABI.js';
-import writeInterface from './src/writeInterface.js';
-import parseCLI from './src/parseCLI.js';
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
+const fs = require('fs-extra');
+const { resolve } = require('path');
+const colors = require('colors');
+const readABI = require('./src/readABI.js');
+const writeInterface = require('./src/writeInterface.js');
+const parseCLI = require('./src/parseCLI.js');
 
 async function main() {
   try {

@@ -1,4 +1,4 @@
-import { program } from 'commander';
+const { program } = require('commander');
 
 function parseCLI() {
   // set CLI params and options
@@ -30,4 +30,4 @@ function parseCLI() {
   } = program.opts();
   return { outputFilename, pragma, abiFilename, color };
 }
-export default parseCLI;
+module.exports = parseCLI;
