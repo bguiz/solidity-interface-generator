@@ -15,7 +15,7 @@ function parseCLI() {
     )
     .option(
       '-a, --abi <filename>',
-      'specify a name for the ABI JSON file. Reads from standart input by default',
+      'specify a name for the ABI JSON file. When unspecified, reads from the standard input',
     )
     .option(
       '--no-color',

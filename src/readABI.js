@@ -1,6 +1,5 @@
 import fs from 'fs';
 
-const DEFAULT_ABI_FILE = 'abi.json';
 /**
  * First tries to read ABI from --abi (-a) command line parameter,
  * then from stdin, and lastly from the default filename
@@ -35,15 +34,6 @@ function readABI(filename) {
       stdin.on('error', () => {
         reject(Error('Error reading ABI file'));
       });
-      // if a file was not specified in stdin either, try to read the default file
-      setTimeout(() => {
-        stdin.pause();
-        try {
-          resolve(JSON.parse(fs.readFileSync(DEFAULT_ABI_FILE)));
-        } catch (error) {
-          reject(error);
-        }
-      }, 100);
     }
   });
 }
