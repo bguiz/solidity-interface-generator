@@ -8,9 +8,9 @@ import { exec as execCallback } from 'child_process';
 import solc from 'solc';
 
 const exec = promisify(execCallback);
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
-const getPath = (file) =>
-  resolve(dirname(fileURLToPath(import.meta.url)), '..', 'contracts', file);
+const getPath = (file) => resolve(__dirname, '..', 'contracts', file);
 
 const DEFAULT_OUTPUT_FILENAME = 'Bridge.sol';
 const DEFAULT_INPUT_FILENAME = 'abi.json';

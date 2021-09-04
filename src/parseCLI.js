@@ -1,5 +1,8 @@
 import { program } from 'commander';
-
+/**
+ * Reads options from the Terminal command line
+ * @returns object with the user specified options
+ */
 function parseCLI() {
   // set CLI params and options
   program
@@ -26,8 +29,8 @@ function parseCLI() {
     output: outputFilename,
     pragma,
     abi: abiFilename,
-    color,
+    color: colorEnabled,
   } = program.opts();
-  return { outputFilename, pragma, abiFilename, color };
+  return { outputFilename, pragma, abiFilename, colorEnabled };
 }
 export default parseCLI;

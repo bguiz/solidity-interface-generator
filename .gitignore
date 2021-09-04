@@ -1,4 +1,7 @@
 node_modules/
-/build
-package-lock.json
+build/
+.nyc_output/
+.vscode/
+
 .DS_Store
+package-lock.json
