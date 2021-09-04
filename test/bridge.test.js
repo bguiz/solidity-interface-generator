@@ -1,12 +1,14 @@
-const { describe, it } = require('mocha');
-const { promisify } = require('util');
-const assert = require('assert');
-const fs = require('fs-extra');
-const { resolve } = require('path');
-const { exec: execCallback } = require('child_process');
-const solc = require('solc');
+import { describe, it } from 'mocha';
+import { promisify } from 'util';
+import assert, { strictEqual } from 'assert';
+import fs from 'fs-extra';
+import { resolve, dirname } from 'path';
+import { fileURLToPath } from 'url';
+import { exec as execCallback } from 'child_process';
+import solc from 'solc';
 
 const exec = promisify(execCallback);
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const getPath = (file) => resolve(__dirname, '..', 'contracts', file);
 
@@ -23,7 +25,7 @@ describe('Bridge generator', () => {
         `node index.js -o ${DEFAULT_OUTPUT_FILENAME} < ${DEFAULT_INPUT_FILENAME}`,
       );
       // check if the certain string was sent to the stdout
-      assert.strictEqual(
+      strictEqual(
         stdout,
         `The bridge was generated. Find it in the file ${getPath(
           DEFAULT_OUTPUT_FILENAME,

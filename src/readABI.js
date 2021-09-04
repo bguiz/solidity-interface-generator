@@ -1,8 +1,8 @@
-const fs = require('fs');
+import fs from 'fs';
 
 /**
  * First tries to read ABI from --abi (-a) command line parameter,
- * then from stdin, and lastly from the default filename
+ * then from stdin
  * @param {string} filename user specified or default ABI filename
  * @returns {Promise<[]>} ABI interface
  */
@@ -15,7 +15,6 @@ function readABI(filename) {
       } catch (error) {
         reject(error);
       }
-
       // if --abi param was not specified, try to read from stdin
     } else {
       const { stdin } = process;
@@ -37,4 +36,4 @@ function readABI(filename) {
     }
   });
 }
-module.exports = readABI;
+export default readABI;
