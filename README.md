@@ -50,7 +50,7 @@
   - [x] Accept value for `output` as a CLI parameter
   - [x] Accept ABI JSON file from `stdin` stream
   - [x] Write output to `stdout` if `output` file is not specified
-- [x] Add vanilla JavaScript / HTML frontend
+
 - [x] Add code coverage tool for mocha tests
 
 ## Author
