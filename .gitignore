@@ -1,6 +1,7 @@
 node_modules/
 build/
 .nyc_output/
+.vscode/
 
 .DS_Store
 package-lock.json
