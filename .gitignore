@@ -1,6 +1,6 @@
 node_modules/
 build/
-coverage/tmp/
+coverage/
 
 .DS_Store
 package-lock.json
