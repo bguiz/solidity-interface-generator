@@ -51,12 +51,12 @@
   - [x] Accept ABI JSON file from `stdin` stream
   - [x] Write output to `stdout` if `output` file is not specified
 - [x] Add vanilla JS/HTML frontend webpage
+- [x] Add c8 code coverage tool for mocha tests
 
 ## Author
 
-[Brendan Graetz](http://bguiz.com/)
-
-[Aleks Shenshin](https://github.com/shenshin/)
+- [Brendan Graetz](http://bguiz.com/)
+- [Aleks Shenshin](https://github.com/shenshin/)
 
 ## Licence
 
